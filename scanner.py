@@ -30,7 +30,7 @@ def Main():
         
             except:
                 PORT += 1
-                continue
+
         
     
     print "\nOpen ports: ", openPorts
