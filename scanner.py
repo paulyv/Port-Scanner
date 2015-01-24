@@ -5,6 +5,7 @@ Created on Jan 22, 2015
 import argparse
 import socket
 import time
+import sys
 
 
 def Main():
@@ -21,25 +22,24 @@ def Main():
     socket.setdefaulttimeout(2)
     
     while PORT <= END_PORT:
-       
-        time.sleep(0.005)
-        print(chr(27) + "[2J")
         percentage = (float(PORT)) / (float(END_PORT)) * 100
+        time.sleep(0.005)
+        
         
         try:
                 s = socket.socket()
                 s.connect((IP, PORT))
-                print "[+] Open port: ", PORT
                 openPorts.append(PORT)
-                print percentage, "% Completed"
-                print "\nOpen ports: ", openPorts
+                sys.stdout.write("\rCompleted: " + '#' * (int(percentage) / 5) + " %d%%" % percentage)
+                sys.stdout.flush()
                 PORT += 1
                 
         except:
-                print percentage, "% Completed"
-                print "\nOpen ports: ", openPorts
+                sys.stdout.write("\rCompleted: " + '#' * (int(percentage) / 5) + " %d%%" % percentage)
+                sys.stdout.flush()
                 PORT += 1
-             
+    
+    print "\nOpen ports found: ",openPorts             
         
     
 
